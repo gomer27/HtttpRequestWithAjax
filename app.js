@@ -74,6 +74,20 @@ class Request {
     };
     this.xhr.send(JSON.stringify(data)); // post - put requestinde gönderirken string değer yapmalısın get requestinde gerek yok
   }
+
+  // Delete Request
+  delete(url, callback) {
+    this.xhr.open("DELETE", url); // Bağlantı açık
+    this.xhr.onload = () => {
+      if (this.xhr.status === 200) {
+        callback(this.xhr.responseText); // İsteğimiz bitti
+      } else {
+        // Hata durumu
+        callback("Delete Requestinde : Hata oluştu", null);
+      }
+    };
+    this.xhr.send();
+  }
 }
 const request = new Request();
 
@@ -130,6 +144,20 @@ request.put(
     if (err === null) {
       // Başarılı
       console.log(album);
+    } else {
+      // Hata
+      console.log(err);
+    }
+  }
+);
+
+// Delete Request
+request.delete(
+  "https://jsonplaceholder.typicode.com/albums/10",
+  function (err, response) {
+    if (err === null) {
+      // Başarılı
+      console.log(response);
     } else {
       // Hata
       console.log(err);
