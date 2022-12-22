@@ -59,6 +59,21 @@ class Request {
     };
     this.xhr.send(JSON.stringify(data)); // post - put requestinde gönderirken string değer yapmalısın get - delete requestinde gerek yok
   }
+
+  //Put Request
+  put(url, data, callback) {
+    this.xhr.open("PUT", url);
+    this.xhr.setRequestHeader("Content-Type", "application/json"); // Json verisi gönderirken bu geçerli (setRequestHeader json diye arat)
+    this.xhr.onload = () => {
+      if (this.xhr.status === 201) {
+        // Başarılı durum
+        callback(null, this.xhr.responseText);
+      } else {
+        callback("Put Requestinde : Hata oluştu", null);
+      }
+    };
+    this.xhr.send(JSON.stringify(data)); // post - put requestinde gönderirken string değer yapmalısın get requestinde gerek yok
+  }
 }
 const request = new Request();
 
@@ -96,6 +111,20 @@ const albums = request.get(
 request.post(
   "https://jsonplaceholder.typicode.com/albums",
   { userId: 06, title: "Behzat Ç." },
+  function (err, album) {
+    if (err === null) {
+      // Başarılı
+      console.log(album);
+    } else {
+      // Hata
+      console.log(err);
+    }
+  }
+);
+
+request.put(
+  "https://jsonplaceholder.typicode.com/albums/34",
+  { userId: 34, title: "Leyla ile Mecnun" },
   function (err, album) {
     if (err === null) {
       // Başarılı
