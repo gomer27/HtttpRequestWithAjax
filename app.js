@@ -65,7 +65,7 @@ class Request {
     this.xhr.open("PUT", url);
     this.xhr.setRequestHeader("Content-Type", "application/json"); // Json verisi gönderirken bu geçerli (setRequestHeader json diye arat)
     this.xhr.onload = () => {
-      if (this.xhr.status === 201) {
+      if (this.xhr.status === 200) {
         // Başarılı durum
         callback(null, this.xhr.responseText);
       } else {
@@ -94,34 +94,35 @@ const request = new Request();
 // );
 
 // İçinden id ile seçtiğimizi aldık
-const albums = request.get(
-  "https://jsonplaceholder.typicode.com/albums/10",
-  function (err, response) {
-    if (err === null) {
-      // Başarılı
-      console.log(response);
-    } else {
-      // Hata
-      console.log(err);
-    }
-  }
-);
+// const albums = request.get(
+//   "https://jsonplaceholder.typicode.com/albums/10",
+//   function (err, response) {
+//     if (err === null) {
+//       // Başarılı
+//       console.log(response);
+//     } else {
+//       // Hata
+//       console.log(err);
+//     }
+//   }
+// );
 
 // Post Request
-request.post(
-  "https://jsonplaceholder.typicode.com/albums",
-  { userId: 06, title: "Behzat Ç." },
-  function (err, album) {
-    if (err === null) {
-      // Başarılı
-      console.log(album);
-    } else {
-      // Hata
-      console.log(err);
-    }
-  }
-);
+// request.post(
+//   "https://jsonplaceholder.typicode.com/albums",
+//   { userId: 06, title: "Behzat Ç." },
+//   function (err, album) {
+//     if (err === null) {
+//       // Başarılı
+//       console.log(album);
+//     } else {
+//       // Hata
+//       console.log(err);
+//     }
+//   }
+// );
 
+// Put Request
 request.put(
   "https://jsonplaceholder.typicode.com/albums/34",
   { userId: 34, title: "Leyla ile Mecnun" },
